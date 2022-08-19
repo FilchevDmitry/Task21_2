@@ -59,9 +59,13 @@ int main()
 	int number_of_plots;
 	std::cout << "Enter the number of plots in the village : ";
 	std::cin >> number_of_plots;
+	std::vector<Village> land_plot;
+	std::vector<Home> home;
+	std::vector<Garage> garage;
+	std::vector<Cabin> cabin;
+	std::vector<Bathhouse> bath;
 	for (int i = 0; i < number_of_plots; i++)
-	{
-		std::vector<Village> land_plot;
+	{	
 		land_plot.push_back(Village());
 		std::cout << "Enter the number of buildings on the site : ";
 		int construction;
@@ -73,7 +77,8 @@ int main()
 			std::cin >> name;
 			if (name == "home")
 			{
-
+				home.push_back(Home());
+				home[j].square = 12.6;
 			}
 			else if (name == "garage")
 			{
