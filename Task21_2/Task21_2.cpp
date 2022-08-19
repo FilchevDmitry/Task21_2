@@ -49,10 +49,10 @@ struct Bathhouse
 struct Village
 {
     double square=0;
-	struct Home home;
-	struct Garage garage;
-	struct Cabin cabin;
-	struct Bathhouse bathhouse;
+	std::vector<Home> home;
+	std::vector<Garage> garage;
+	std::vector<Cabin> cabin;
+	std::vector<Bathhouse> bath;
 };
 int main()
 {
@@ -60,10 +60,7 @@ int main()
 	std::cout << "Enter the number of plots in the village : ";
 	std::cin >> number_of_plots;
 	std::vector<Village> land_plot;
-	std::vector<Home> home;
-	std::vector<Garage> garage;
-	std::vector<Cabin> cabin;
-	std::vector<Bathhouse> bath;
+
 	for (int i = 0; i < number_of_plots; i++)
 	{	
 		land_plot.push_back(Village());
@@ -77,8 +74,7 @@ int main()
 			std::cin >> name;
 			if (name == "home")
 			{
-				home.push_back(Home());
-				home[j].square = 12.6;
+
 			}
 			else if (name == "garage")
 			{
