@@ -62,6 +62,7 @@ int main()
 	for (int i = 0; i < number_of_plots; i++)
 	{
 		std::vector<Village> land_plot;
+		land_plot.push_back(Village());
 		std::cout << "Enter the number of buildings on the site : ";
 		int construction;
 		std::cin >> construction;
@@ -84,7 +85,8 @@ int main()
 			}
 			else if (name == "bathhouse")
 			{
-
+				std::cout << "Enter the area of the bathhouse : ";
+				std::cin>>land_plot[i].bathhouse.square;
 			}
 			else
 				std::cout << "There is no such building in the database\n";
