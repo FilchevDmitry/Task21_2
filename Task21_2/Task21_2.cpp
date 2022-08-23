@@ -9,13 +9,6 @@ enum room_type
 	living,
 	children
 };
-enum construct
-{
-	home,
-	garage,
-	cabin,
-	bathhouse
-};
 struct Room
 {
 	double square=0;
@@ -74,25 +67,80 @@ int main()
 			std::cin >> name;
 			if (name == "home")
 			{
-
+				std::string temp;
+				bool check = true;
+				std::cout << "Enter the area of the home : ";
+				land_plot[j].home.push_back(Home());
+				std::cin >> land_plot[i].home[j].square;
+				do {
+					std::cout << "Oven in the home? (yes or no) ";
+					std::cin >> temp;
+					if (temp == "yes")
+					{
+						land_plot[i].home[j].bake = true;
+						check = false;
+					}
+					else if (temp == "no")
+					{
+						land_plot[i].home[j].bake = false;
+						check = false;
+					}
+					else
+					{
+						std::cout << "Incorrect input!!!";
+					}
+				} while (check);
+				int number_of_floors = 0;
+				std::cout << "Number of floors in the house ?";
+				std::cin >> number_of_floors;
+				for (int k = 0; k < number_of_floors; k++)
+				{
+					
+				}
 			}
 			else if (name == "garage")
 			{
-
+				std::cout << "Enter the area of the garage : ";
+				land_plot[j].garage.push_back(Garage());
+				std::cin >> land_plot[i].garage[j].square;
 			}
 			else if (name == "cabin")
 			{
-
+				std::cout << "Enter the area of the cabin : ";
+				land_plot[j].cabin.push_back(Cabin());
+				std::cin >> land_plot[i].cabin[j].square;
 			}
 			else if (name == "bathhouse")
 			{
+				std::string temp;
+				bool check = true;
 				std::cout << "Enter the area of the bathhouse : ";
-				std::cin>>land_plot[i].bathhouse.square;
+				land_plot[j].bath.push_back(Bathhouse());
+				std::cin >> land_plot[i].bath[j].square;
+				do {
+					std::cout << "Oven in the bath? (yes or no) ";
+					std::cin >> temp;
+					if (temp == "yes")
+					{
+						land_plot[i].bath[j].bake = true;
+						check = false;
+					}
+					else if (temp == "no")
+					{
+						land_plot[i].bath[j].bake = false;
+						check = false;
+					}	
+					else
+					{
+						std::cout << "Incorrect input!!!";
+					}
+				} while (check);
 			}
 			else
 				std::cout << "There is no such building in the database\n";
 		}
 	}
-	
+	std::cout << land_plot[0].bath[0].square << std::endl;
+	std::cout << land_plot[0].bath[0].bake;
 }
 
