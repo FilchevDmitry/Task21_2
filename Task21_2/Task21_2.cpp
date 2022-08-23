@@ -7,7 +7,8 @@ enum room_type
 	kitchen,
 	bathroom,
 	living,
-	children
+	children,
+	other
 };
 struct Room
 {
@@ -17,13 +18,13 @@ struct Room
 struct Floor
 {
 	double ceiling_height=0;
-	struct Room space;
+	std::vector<Room> room;
 };
 struct Home
 {
 	double square;
 	bool bake = false;
-	struct Floor floo;
+	std::vector<Floor> floor;
 	
 };
 struct Garage
@@ -95,7 +96,60 @@ int main()
 				std::cin >> number_of_floors;
 				for (int k = 0; k < number_of_floors; k++)
 				{
-					
+					int number_of_rooms = 0;
+					land_plot[i].home[j].floor.push_back(Floor());
+					std::cout << "Ceiling height on the floor ? : ";
+					std::cin >> land_plot[i].home[j].floor[k].ceiling_height;
+					std::cout << "Enter the number of rooms per floor :";
+					std::cin >> number_of_rooms;
+					for (int m = 0; m < number_of_rooms; m++)
+					{
+						std::string title;
+						bool check = true;
+						land_plot[i].home[j].floor[k].room.push_back(Room());
+						std::cout << "Enter the area of the room : ";
+						std::cin >> land_plot[i].home[j].floor[k].room[m].square;
+						std::cout << "Enter the room name (bedroom, kitchen, bathroom, living, children, other) : ";
+						std::cin >> title;
+						do
+						{
+							if (title == "bedroom")
+							{
+								land_plot[i].home[j].floor[k].room[m].room = bedroom;
+								check = false;
+							}
+							else if (title == "kitchen")
+							{
+								land_plot[i].home[j].floor[k].room[m].room = kitchen;
+								check = false;
+							}
+							else if (title == "bathroom")
+							{
+								land_plot[i].home[j].floor[k].room[m].room = bathroom;
+								check = false;
+							}
+							else if (title == "living")
+							{
+								land_plot[i].home[j].floor[k].room[m].room = living;
+								check = false;
+							}
+							else if (title == "children")
+							{
+								land_plot[i].home[j].floor[k].room[m].room = children;
+								check = false;
+							}
+							else if (title == "other")
+							{
+								land_plot[i].home[j].floor[k].room[m].room = other;
+								check = false;
+							}
+							else
+							{
+								std::cout << "Incorrect input!!!";
+							}
+						} 
+						while (check);
+					}
 				}
 			}
 			else if (name == "garage")
