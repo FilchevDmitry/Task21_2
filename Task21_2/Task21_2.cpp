@@ -3,12 +3,19 @@
 #include <string>
 enum room_type
 {
-	bedroom,
-	kitchen,
-	bathroom,
-	living,
-	children,
-	other
+	BEDROOM,
+	KITCHEN,
+	BATHROOM,
+	LIVING,
+	CHILDREN,
+	OTHER
+};
+enum house_type
+{
+	HOME,
+	GARAGE,
+	CABIN,
+	BATHHOUSE
 };
 struct Room
 {
@@ -20,70 +27,55 @@ struct Floor
 	double ceiling_height=0;
 	std::vector<Room> room;
 };
-struct Home
+
+struct House
 {
-	double square;
+	house_type type;
+	double square = 0;
 	bool bake = false;
 	std::vector<Floor> floor;
-	
 };
-struct Garage
+struct Vilage
 {
-	double square=0;
-};
-struct Cabin
-{
-	double square=0;
-};
-struct Bathhouse
-{
-	double square=0;
-	bool bake = false;
-};
-struct Village
-{
-    double square=0;
-	std::vector<Home> home;
-	std::vector<Garage> garage;
-	std::vector<Cabin> cabin;
-	std::vector<Bathhouse> bath;
+	std::vector<House>house;
 };
 int main()
 {
 	int number_of_plots;
 	std::cout << "Enter the number of plots in the village : ";
 	std::cin >> number_of_plots;
-	std::vector<Village> land_plot;
-
+	std::vector<Vilage> land_plot;
 	for (int i = 0; i < number_of_plots; i++)
 	{	
-		land_plot.push_back(Village());
+		land_plot.push_back(Vilage());
+		land_plot[i].house.push_back(House());
 		std::cout << "Enter the number of buildings on the site : ";
 		int construction;
 		std::cin >> construction;
 		for (int j = 0; j < construction; j++)
 		{
-			std::string name;
-			std::cout << "Enter the name of the building (home, garage, cabin, bathhouse)";
+			int name;
+			std::cout << "Enter the name of the building\n 0-HOME\n 1-GARAGE\n 2-CABIN\n 3-BATHHOUSE\n";
 			std::cin >> name;
-			if (name == "home")
+			land_plot[i].house[j].type =(house_type)name;
+			
+			if (name == 0)
 			{
-				std::string temp;
 				bool check = true;
 				std::cout << "Enter the area of the home : ";
-				land_plot[j].home.push_back(Home());
-				std::cin >> land_plot[i].home[j].square;
+				std::cin >> land_plot[i].house[j].square;
 				do {
+					std::string temp;
 					std::cout << "Oven in the home? (yes or no) ";
 					std::cin >> temp;
 					if (temp == "yes")
 					{
-						land_plot[i].home[j].bake = true;
+						land_plot[i].house[j].bake = true;
 						check = false;
 					}
 					else if (temp == "no")
 					{
-						land_plot[i].home[j].bake = false;
+						land_plot[i].house[j].bake = false;
 						check = false;
 					}
 					else
@@ -92,98 +84,103 @@ int main()
 					}
 				} while (check);
 				int number_of_floors = 0;
-				std::cout << "Number of floors in the house ?";
+				std::cout << "Floors in the house ?\n";
 				std::cin >> number_of_floors;
 				for (int k = 0; k < number_of_floors; k++)
 				{
 					int number_of_rooms = 0;
-					land_plot[i].home[j].floor.push_back(Floor());
+					land_plot[i].house[j].floor.push_back(Floor());
 					std::cout << "Ceiling height on the floor ? : ";
-					std::cin >> land_plot[i].home[j].floor[k].ceiling_height;
+					std::cin >> land_plot[i].house[j].floor[k].ceiling_height;
 					std::cout << "Enter the number of rooms per floor :";
 					std::cin >> number_of_rooms;
 					for (int m = 0; m < number_of_rooms; m++)
 					{
-						std::string title;
-						bool check = true;
-						land_plot[i].home[j].floor[k].room.push_back(Room());
-						std::cout << "Enter the area of the room : ";
-						std::cin >> land_plot[i].home[j].floor[k].room[m].square;
-						std::cout << "Enter the room name (bedroom, kitchen, bathroom, living, children, other) : ";
+						int title;
+						land_plot[i].house[j].floor[k].room.push_back(Room());
+						std::cout << "Enter the room name\n 0-bedroom\n 1-kitchen\n 2-bathroom\n 3-living\n 4-children\n 5-other\n";
 						std::cin >> title;
 						do
 						{
-							if (title == "bedroom")
+							bool check = true;
+							if (title == 0)
 							{
-								land_plot[i].home[j].floor[k].room[m].room = bedroom;
+								land_plot[i].house[j].floor[k].room[m].room = BEDROOM;
+								std::cout << "Enter the area of the bedroom : ";
+								std::cin >> land_plot[j].house[j].floor[k].room[m].square;
 								check = false;
 							}
-							else if (title == "kitchen")
+							else if (title == 1)
 							{
-								land_plot[i].home[j].floor[k].room[m].room = kitchen;
+								land_plot[i].house[j].floor[k].room[m].room = KITCHEN;
+								std::cout << "Enter the area of the kitchen : ";
+								std::cin >> land_plot[j].house[j].floor[k].room[m].square;
 								check = false;
 							}
-							else if (title == "bathroom")
+							else if (title == 2)
 							{
-								land_plot[i].home[j].floor[k].room[m].room = bathroom;
+								land_plot[i].house[j].floor[k].room[m].room = BATHROOM;
+								std::cout << "Enter the area of the bathroom : ";
+								std::cin >> land_plot[j].house[j].floor[k].room[m].square;
 								check = false;
 							}
-							else if (title == "living")
+							else if (title == 3)
 							{
-								land_plot[i].home[j].floor[k].room[m].room = living;
+								land_plot[i].house[j].floor[k].room[m].room = LIVING;
+								std::cout << "Enter the area of the living : ";
+								std::cin >> land_plot[j].house[j].floor[k].room[m].square;
 								check = false;
 							}
-							else if (title == "children")
+							else if (title == 4)
 							{
-								land_plot[i].home[j].floor[k].room[m].room = children;
+								land_plot[i].house[j].floor[k].room[m].room = CHILDREN;
+								std::cout << "Enter the area of the children : ";
+								std::cin >> land_plot[j].house[j].floor[k].room[m].square;
 								check = false;
 							}
-							else if (title == "other")
+							else if (title == 5)
 							{
-								land_plot[i].home[j].floor[k].room[m].room = other;
+								land_plot[i].house[j].floor[k].room[m].room = OTHER;
+								std::cout << "Enter the area of the room : ";
+								std::cin >> land_plot[j].house[j].floor[k].room[m].square;
 								check = false;
 							}
 							else
 							{
 								std::cout << "Incorrect input!!!";
 							}
-						} 
-						while (check);
-					}
+						} while (check);
+					}		
 				}
 			}
-			else if (name == "garage")
+			else if (name == 1)
 			{
 				std::cout << "Enter the area of the garage : ";
-				land_plot[j].garage.push_back(Garage());
-				std::cin >> land_plot[i].garage[j].square;
+				std::cin >> land_plot[i].house[j].square;
 			}
-			else if (name == "cabin")
+			else if (name == 2)
 			{
 				std::cout << "Enter the area of the cabin : ";
-				land_plot[j].cabin.push_back(Cabin());
-				std::cin >> land_plot[i].cabin[j].square;
+				std::cin >> land_plot[i].house[j].square;
 			}
-			else if (name == "bathhouse")
-			{
-				std::string temp;
+			else if (name == 3) {
 				bool check = true;
 				std::cout << "Enter the area of the bathhouse : ";
-				land_plot[j].bath.push_back(Bathhouse());
-				std::cin >> land_plot[i].bath[j].square;
+				std::cin >> land_plot[i].house[j].square;
 				do {
+					std::string temp;
 					std::cout << "Oven in the bath? (yes or no) ";
 					std::cin >> temp;
 					if (temp == "yes")
 					{
-						land_plot[i].bath[j].bake = true;
+						land_plot[i].house[j].bake = true;
 						check = false;
 					}
 					else if (temp == "no")
 					{
-						land_plot[i].bath[j].bake = false;
+						land_plot[i].house[j].bake = false;
 						check = false;
-					}	
+					}
 					else
 					{
 						std::cout << "Incorrect input!!!";
@@ -192,9 +189,10 @@ int main()
 			}
 			else
 				std::cout << "There is no such building in the database\n";
+
 		}
 	}
-	std::cout << land_plot[0].bath[0].square << std::endl;
-	std::cout << land_plot[0].bath[0].bake;
+	std::cout << land_plot[0].house[0].type << std::endl;
+	std::cout << land_plot[0].house[0].bake;
 }
 
